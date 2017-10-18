@@ -10,6 +10,7 @@ This plugin for PocketMine, which displays the image of the phone in the game. N
 * USB cable, but there is also debugging over the network.
 * Last pmmp build for MCPE 1.2
 * Gd lib
+* Know the screen resolution on your phone.
 
 ### How to install plugin?
 * Install: pmmp, gd lib, adb
