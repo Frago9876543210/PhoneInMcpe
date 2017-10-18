@@ -1,5 +1,6 @@
 # PhoneInMcpe
-# ![im](https://snag.gy/d1q7cQ.jpg)
+# ![im1](https://snag.gy/d1q7cQ.jpg)
+# ![im2](https://snag.gy/6FgDwB.jpg)
 
 ### What is this?
 This plugin for PocketMine, which displays the image of the phone in the game. Now it works quite slowly.
@@ -17,7 +18,7 @@ This plugin for PocketMine, which displays the image of the phone in the game. N
 * Enable USB debugging on you phone (In the settings for developers)
 * Connect your phone to your PC via USB cable
 * Open the command line (terminal or console) and write ```adb devices -l```.
-# ![im1](https://snag.gy/M3Tt8m.jpg)
+# ![im3](https://snag.gy/M3Tt8m.jpg)
 * Edit file ```Main.php```. There I marked all the calculations
 * That's it. You can start the server.
 * Now go to the server and write to the chat ```start```
