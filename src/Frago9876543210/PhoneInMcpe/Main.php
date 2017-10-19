@@ -22,6 +22,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\UUID;
 
 class Main extends PluginBase implements Listener{
+	
 	/** @var string $model */
 	public $model = '{"geometry.flat":{"bones":[{"name":"body","pivot":[0.0,0.0,0.0],"pos":[0.0,0.0,0.0],"rotation":[0.0,0.0,0.0],"cubes":[{"origin":[0.0,0.0,0.0],"size":[64.0,64.0,1.0],"uv":[0.0,0.0]}]}]}}';
 	/** @var int $width */
@@ -38,7 +39,7 @@ class Main extends PluginBase implements Listener{
 			return;
 		}
 
-		if(is_float($this->width) || is_float($this->height)){
+		if(!is_int($this->width) || !is_int($this->height)){
 			$this->getLogger()->error("[-] You incorrectly calculated the size!");
 			$this->getServer()->getPluginManager()->disablePlugin($this);
 			return;
@@ -49,6 +50,7 @@ class Main extends PluginBase implements Listener{
 			$this->removeDir($path . "tmp");
 		}
 		@mkdir($path . "tmp");
+		
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		echo shell_exec('adb devices -l'); //for init phone & start adb server
 
@@ -116,7 +118,9 @@ class Main extends PluginBase implements Listener{
 
 	/**
 	 * Converts an image to bytes
+	 *
 	 * @param string $filename path to png
+	 *
 	 * @return string bytes for skin
 	 */
 	public function getTextureFromFile(string $filename) : string{
@@ -139,7 +143,9 @@ class Main extends PluginBase implements Listener{
 
 	/**
 	 * Recursive crop image
+	 *
 	 * @param string $image  path to png
+	 *
 	 * @param string $output path to output png
 	 */
 	public function cropRecursive(string $image, string $output) : void{
@@ -160,6 +166,7 @@ class Main extends PluginBase implements Listener{
 
 	/**
 	 * Resizes the picture
+	 *
 	 * @param string $filename path to png
 	 * @param string $output   path to output png
 	 * @param int    $new_width
@@ -176,6 +183,8 @@ class Main extends PluginBase implements Listener{
 	}
 
 	/**
+	 * Remove directory
+	 *
 	 * @param string $dir
 	 */
 	private function removeDir(string $dir) : void{
@@ -184,6 +193,7 @@ class Main extends PluginBase implements Listener{
 				is_dir($obj) ? $this->removeDir($obj) : unlink($obj);
 			}
 		}
+		
 		rmdir($dir);
 	}
 
