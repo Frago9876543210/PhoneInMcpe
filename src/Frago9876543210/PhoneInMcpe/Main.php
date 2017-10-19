@@ -27,7 +27,7 @@ class Main extends PluginBase implements Listener{
 	/** @var int $width */
 	public $width = 7; //1920 / 64 = 30; 30 / 2 = 15; 15 / 2 = 7.5; 7
 	/** @var int $height */
-	public $height = 4; //1080 / 64 = 16,875; 16 / 2 = 8; 8 / 2 = 4
+	public $height = 4; //1080 / 64 = 16.875; 16 / 2 = 8; 8 / 2 = 4
 	/** @var  UUID[] $entities */
 	public $entities = [];
 
@@ -101,11 +101,16 @@ class Main extends PluginBase implements Listener{
 				}
 			}
 		}elseif($word === "touch"){
+			$e->setCancelled();
 			if(isset($args[0]) && isset($args[1])){
 				$this->touch(intval($args[0]), intval($args[1]));
 			}
 		}elseif($word === "shell"){
+			$e->setCancelled();
 			shell_exec("adb shell " . implode(" ", $args));
+		}elseif($word === "stop"){
+			$e->setCancelled();
+			$this->entities = [];
 		}
 	}
 
