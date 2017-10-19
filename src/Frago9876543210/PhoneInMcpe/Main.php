@@ -25,9 +25,9 @@ class Main extends PluginBase implements Listener{
 	/** @var string $model */
 	public $model = '{"geometry.flat":{"bones":[{"name":"body","pivot":[0.0,0.0,0.0],"pos":[0.0,0.0,0.0],"rotation":[0.0,0.0,0.0],"cubes":[{"origin":[0.0,0.0,0.0],"size":[64.0,64.0,1.0],"uv":[0.0,0.0]}]}]}}';
 	/** @var int $width */
-	public $width = 15; //1920 / 64 = 30; 30 / 2 = 15
+	public $width = 7; //1920 / 64 = 30; 30 / 2 = 15;
 	/** @var int $height */
-	public $height = 8; //1080 / 64 = 16,875; 16 / 2 = 8
+	public $height = 4; //1080 / 64 = 16,875; 16 / 2 = 8
 	/** @var  UUID[] $entities */
 	public $entities = [];
 
@@ -38,7 +38,7 @@ class Main extends PluginBase implements Listener{
 			return;
 		}
 
-		if(($this->width * 64) % 64 !== 0 || ($this->height * 64) % 64 !== 0){
+		if(is_float($this->width) || is_float($this->height)){
 			$this->getLogger()->error("[-] You incorrectly calculated the size!");
 			$this->getServer()->getPluginManager()->disablePlugin($this);
 			return;
@@ -94,13 +94,15 @@ class Main extends PluginBase implements Listener{
 
 					$skinPk = new PlayerSkinPacket;
 					$skinPk->uuid = $uuid;
-					$skinPk->skin = new Skin(rand() . "", str_repeat('Z', 16384), "", "geometry.flat", $this->model);
+					$skinPk->skin = new Skin("", str_repeat('Z', 16384), "", "geometry.flat", $this->model);
 					$p->getServer()->broadcastPacket($this->getServer()->getOnlinePlayers(), $skinPk);
 
 					$this->entities[] = $uuid;
-
-					//todo: realize touch
 				}
+			}
+		}elseif($word = "touch"){
+			if(isset($args[0]) && isset($args[1])){
+				shell_exec("adb shell input tap $args[0] $args[1]");
 			}
 		}
 	}

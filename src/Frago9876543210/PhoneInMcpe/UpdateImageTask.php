@@ -34,7 +34,7 @@ class UpdateImageTask extends PluginTask{
 			foreach($this->plugin->entities as $UUID){
 				$pk = new PlayerSkinPacket;
 				$pk->uuid = $UUID;
-				$pk->skin = new Skin(rand() . "", $this->plugin->getTextureFromFile($this->plugin->getDataFolder() . DIRECTORY_SEPARATOR . 'tmp/p' . $index++ . '.png'), "", "geometry.flat", $this->plugin->model);
+				$pk->skin = new Skin("", $this->plugin->getTextureFromFile($this->plugin->getDataFolder() . DIRECTORY_SEPARATOR . 'tmp/p' . $index++ . '.png'), "", "geometry.flat", $this->plugin->model);
 				$this->getServer()->broadcastPacket($this->getServer()->getOnlinePlayers(), $pk);
 			}
 		}
