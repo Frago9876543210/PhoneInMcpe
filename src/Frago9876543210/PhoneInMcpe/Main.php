@@ -25,9 +25,9 @@ class Main extends PluginBase implements Listener{
 	/** @var string $model */
 	public $model = '{"geometry.flat":{"bones":[{"name":"body","pivot":[0.0,0.0,0.0],"pos":[0.0,0.0,0.0],"rotation":[0.0,0.0,0.0],"cubes":[{"origin":[0.0,0.0,0.0],"size":[64.0,64.0,1.0],"uv":[0.0,0.0]}]}]}}';
 	/** @var int $width */
-	public $width = 7; //1920 / 64 = 30; 30 / 2 = 15;
+	public $width = 7; //1920 / 64 = 30; 30 / 2 = 15; 15 / 2 = 7.5; 7
 	/** @var int $height */
-	public $height = 4; //1080 / 64 = 16,875; 16 / 2 = 8
+	public $height = 4; //1080 / 64 = 16,875; 16 / 2 = 8; 8 / 2 = 4
 	/** @var  UUID[] $entities */
 	public $entities = [];
 
@@ -65,7 +65,7 @@ class Main extends PluginBase implements Listener{
 		$args = explode(" ", $m);
 		$word = array_shift($args);
 
-		if($word == "start"){
+		if($word === "start"){
 			unset($this->entities);
 			$e->setCancelled();
 			$coordinates = $p->asVector3();
@@ -100,10 +100,12 @@ class Main extends PluginBase implements Listener{
 					$this->entities[] = $uuid;
 				}
 			}
-		}elseif($word = "touch"){
+		}elseif($word === "touch"){
 			if(isset($args[0]) && isset($args[1])){
-				shell_exec("adb shell input tap $args[0] $args[1]");
+				$this->touch(intval($args[0]), intval($args[1]));
 			}
+		}elseif($word === "shell"){
+			shell_exec("adb shell " . implode(" ", $args));
 		}
 	}
 
@@ -178,5 +180,13 @@ class Main extends PluginBase implements Listener{
 			}
 		}
 		rmdir($dir);
+	}
+
+	/**
+	 * @param int $x
+	 * @param int $y
+	 */
+	public function touch(int $x, int $y) : void{
+		shell_exec("adb shell input tap $x $y");
 	}
 }
