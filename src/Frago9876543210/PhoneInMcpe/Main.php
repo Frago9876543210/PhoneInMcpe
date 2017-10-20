@@ -28,7 +28,7 @@ use pocketmine\utils\UUID;
 class Main extends PluginBase implements Listener{
 
 	/** @var string $model */
-	public $model = '{"geometry.flat":{"bones":[{"name":"body","pivot":[0.0,0.0,0.0],"pos":[0.0,0.0,0.0],"rotation":[0.0,0.0,0.0],"cubes":[{"origin":[0.0,0.0,0.0],"size":[64.0,64.0,1.0],"uv":[0.0,0.0]}]}]}}';
+	public $model = '{"geometry.flat":{"bones":[{"name":"body","pivot":[0,0,0],"cubes":[{"origin":[0,0,0],"size":[64,64,1],"uv":[0,0]}]}]}}';
 	/** @var int $width */
 	public $width = 7; //1920 / 64 = 30; 30 / 2 = 15; 15 / 2 = 7.5; 7
 	/** @var int $height */
