@@ -88,13 +88,13 @@ class Main extends PluginBase implements Listener{
 					$pk->uuid = $uuid = UUID::fromRandom();
 					$pk->username = "";
 					$pk->entityRuntimeId = $eid = Entity::$entityCount++;
-					$pk->position = new Vector3($coordinates->x + $direction->x + ($x * 3), $coordinates->y + ($y * 3), $coordinates->z + $direction->z);
+					$pk->position = new Vector3($coordinates->x + $direction->x + ($x * 0.5), $coordinates->y + ($y * 0.5), $coordinates->z + $direction->z);
 					$pk->motion = new Vector3;
 					$pk->yaw = 0.0;
 					$pk->pitch = 0.0;
 					$pk->item = Item::get(Item::AIR);
 					$pk->metadata = [
-						Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0.75],
+						Entity::DATA_SCALE => [Entity::DATA_TYPE_FLOAT, 0.125],
 						Entity::DATA_BOUNDING_BOX_WIDTH => [Entity::DATA_TYPE_FLOAT, 0],
 						Entity::DATA_BOUNDING_BOX_HEIGHT => [Entity::DATA_TYPE_FLOAT, 0]
 					];
@@ -104,6 +104,7 @@ class Main extends PluginBase implements Listener{
 					$skinPk->uuid = $uuid;
 					$skinPk->skin = new Skin("", str_repeat('Z', 16384), "", "geometry.flat", $this->model);
 					$p->getServer()->broadcastPacket($this->getServer()->getOnlinePlayers(), $skinPk);
+					//todo: check this
 					$this->entities[] = new EntityInfo($eid, $uuid, $x * 4 * 64, $y * 4 * 64);
 				}
 			}
@@ -120,7 +121,9 @@ class Main extends PluginBase implements Listener{
 			foreach($this->entities as $entityInfo){
 				$pk = new RemoveEntityPacket;
 				$pk->entityUniqueId = $entityInfo->getEntityRuntimeId();
+				$p->dataPacket($pk);
 			}
+			$this->entities = [];
 		}
 	}
 
