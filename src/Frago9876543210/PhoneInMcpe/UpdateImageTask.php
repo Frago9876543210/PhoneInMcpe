@@ -31,9 +31,9 @@ class UpdateImageTask extends PluginTask{
 			$this->plugin->resize($path . 's.png', $path . 's1.png', $this->plugin->width * 64, $this->plugin->height * 64);
 			$this->plugin->cropRecursive($path . 's1.png', $this->plugin->getDataFolder() . DIRECTORY_SEPARATOR . "tmp/p");
 			$index = 0;
-			foreach($this->plugin->entities as $UUID){
+			foreach($this->plugin->entities as $entityInfo){
 				$pk = new PlayerSkinPacket;
-				$pk->uuid = $UUID;
+				$pk->uuid = $entityInfo->getUUID();
 				$pk->skin = new Skin("", $this->plugin->getTextureFromFile($this->plugin->getDataFolder() . DIRECTORY_SEPARATOR . 'tmp/p' . $index++ . '.png'), "", "geometry.flat", $this->plugin->model);
 				$this->getServer()->broadcastPacket($this->getServer()->getOnlinePlayers(), $pk);
 			}
