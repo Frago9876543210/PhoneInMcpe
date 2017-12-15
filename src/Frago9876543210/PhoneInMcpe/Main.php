@@ -179,12 +179,11 @@ class Main extends PluginBase implements Listener{
 	 * @param string $output path to output png
 	 */
 	public function cropRecursive(string $image, string $output) : void{
-		//TODO: optimization
 		$size = getimagesize($image);
 		$im = imagecreatefrompng($image);
 		$newIm = imagecreatetruecolor(64, 64);
 		$i = 0;
-		for($xc = 0; $xc <= $size[0]; $xc = $xc + 64){
+		for($xc = 0; $xc < $size[0]; $xc = $xc + 64){
 			for($y = $size[1] - 64; $y >= 0; $y = $y - 64){
 				imagecopy($newIm, $im, 0, 0, $xc, $y, 64, 64);
 				imagepng($newIm, $output . $i++ . '.png');
