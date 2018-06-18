@@ -12,16 +12,15 @@ namespace Frago9876543210\PhoneInMcpe;
 
 use pocketmine\entity\Skin;
 use pocketmine\network\mcpe\protocol\PlayerSkinPacket;
-use pocketmine\scheduler\PluginTask;
+use pocketmine\scheduler\Task;
 use pocketmine\Server;
 
-class UpdateImageTask extends PluginTask{
+class UpdateImageTask extends Task{
 	/** @var  Main $plugin */
 	private $plugin;
 
 	public function __construct(Main $plugin){
 		$this->plugin = $plugin;
-		parent::__construct($plugin);
 	}
 
 	public function onRun(int $currentTick) : void{

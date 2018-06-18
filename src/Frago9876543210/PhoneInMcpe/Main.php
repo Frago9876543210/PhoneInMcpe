@@ -55,7 +55,7 @@ class Main extends PluginBase implements Listener{
 		if(file_exists($path . "tmp")){
 			$this->removeDir($path . "tmp");
 		}
-		@mkdir($path . "tmp");
+		@mkdir($path . "tmp", 0666, true);
 
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		echo shell_exec('adb devices -l'); //for init phone & start adb server
@@ -63,7 +63,7 @@ class Main extends PluginBase implements Listener{
 		//If you have a productive PC, then you can use it:
 		//$this->getServer()->getScheduler()->scheduleRepeatingTask(new UpdateImageTask($this), 1);
 		//but this is better for small tests:
-		$this->getServer()->getScheduler()->scheduleRepeatingTask(new UpdateImageTask($this), 5);
+		$this->getScheduler()->scheduleRepeatingTask(new UpdateImageTask($this), 5);
 	}
 
 	public function chat(PlayerChatEvent $e) : void{
@@ -229,5 +229,10 @@ class Main extends PluginBase implements Listener{
 	 */
 	public function touch(int $x, int $y) : void{
 		shell_exec("adb shell input tap $x $y");
+	}
+
+	public function onDisable() : void{
+		@unlink($this->getServer()->getDataPath() . "s.png");
+		@unlink($this->getServer()->getDataPath() . "s1.png");
 	}
 }
